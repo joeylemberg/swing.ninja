@@ -1,0 +1,209 @@
+<html>
+
+
+<script>
+
+var isMobile = false;
+var isDesktop = true;
+var isApp = false;
+var isWeb = true;
+var mousedown = "mousedown";
+var mouseup = "mouseup";
+
+/*var isMobile = true;
+var isDesktop = false;
+var isApp = false;
+var isWeb = true;
+var mousedown = "touchstart";
+var mouseup = "touchend";*/
+
+</script>
+
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta name="description" content="Swing for your life!">
+	<meta name="author" content="Joey Lemberg">
+	<meta charset="UTF-8">
+	<title>Swing Ninja</title>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/MainGame.js"></script>
+	<script src="js/Endless.js"></script>
+	<script src="js/Grap.js"></script>
+	<script src="js/Sound.js"></script>
+	<script src="js/Level.js"></script>
+	<script src="js/Sprite.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/Input.js"></script>
+	<script src="js/Physics.js"></script>
+	<script src="js/Booms.js"></script>
+	<script src="js/Cover.js"></script>
+	<script src="js/Menu.js"></script>
+
+	<script src="js/API.js"></script>
+	<script src="js/Util.js"></script>
+
+	<link rel="stylesheet" href="css/game.css" />
+
+	<style>
+  @media (max-width: 800px) {
+		.menu-button {
+	    font-size: 1.1em;
+	    padding: 0.2em;
+		}
+		img.menu-item{
+			margin-top: 5%;
+		}
+		.level-button {
+	    font-size: 12px;
+	    padding: 3px 8px;
+			margin: 5px;
+			border-radius: 4px;
+		}
+  }
+	#level-button-0{
+		clear:left;
+	}
+
+	<style>
+	</style>
+</head>
+
+<body>
+	<img id="splash-img" src="img/branded-splash.png" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;cursor:pointer;" />
+<div id="ceiling"></div>
+<div id="ceiling-cover"></div>
+<div id="lava"></div>
+<!--<canvas id="sprites" width="800" height="370"></canvas>-->
+<div id="score">0m</div>
+<div id="dt"></div>
+<div id="sound"><img src="img/sound.png" /></div>
+<div id="best-score">Best: 0m</div>
+<div id="game-over-box" unselectable="on"><b id="game-over">GAME OVER</b></br><b id="game-over-sub">tap to swing again</b></div>
+
+<div id="main-menu">
+	<img class="menu-item" data-action="endless" src="img/title.png" style="width:100%;margin-top:10%;cursor:pointer;"/>
+	<!--<div class="menu-button" data-action="main" style="margin-top:1.5em;">Main Game</div>
+	<div class="menu-button" data-action="play">Endless Mode</div>-->
+
+	<div class="menu-button" data-action="main" style="margin-top:1.5em;">Main Game</div>
+	<div class="menu-button" data-action="endless">Endless Mode</div>
+	<div class="menu-button" data-action="instructions">Instructions</div>
+	<!--<div class="menu-button" data-action="hall">Hall of Fame</div>-->
+	<div class="menu-button" data-action="about">About</div>
+
+	<div class="menu-button" data-action="splash">Title Page</div>
+
+	<div class="menu-button" data-action="credits">Credits</div>
+</div>
+
+<div id="level-text"></div>
+<div id="main-game" class="menu-page">
+	<p><img src="img/title.png" style="width:300px;display:inline-block;float:left;"><div id="level-button-0" +="" class="level-button" data-index="0">Level 0</div><div id="level-button-1" +="" class="level-button" data-index="1">Level 1</div><div id="level-button-2" +="" class="level-button" data-index="2">Level 2</div><div id="level-button-3" +="" class="level-button" data-index="3">Level 3</div><div id="level-button-4" +="" class="level-button" data-index="4">Level 4</div><div id="level-button-5" +="" class="level-button" data-index="5">Level 5</div><div id="level-button-6" +="" class="level-button" data-index="6">Level 6</div><div id="level-button-7" +="" class="level-button" data-index="7">Level 7</div><div id="level-button-8" +="" class="level-button" data-index="8">Level 8</div><div id="level-button-9" +="" class="level-button" data-index="9">Level 9</div><div id="level-button-10" +="" class="level-button" data-index="10">Level 10</div><div id="level-button-11" +="" class="level-button" data-index="11">Level 11</div><div id="level-button-12" +="" class="level-button" data-index="12">Level 12</div><div id="level-button-13" +="" class="level-button" data-index="13">Level 13</div><div id="level-button-14" +="" class="level-button" data-index="14">Level 14</div><div id="level-button-15" +="" class="level-button" data-index="15">Level 15</div><div id="level-button-16" +="" class="level-button" data-index="16">Level 16</div><div id="level-button-17" +="" class="level-button" data-index="17">Level 17</div><div id="level-button-18" +="" class="level-button" data-index="18">Level 18</div><div id="level-button-19" +="" class="level-button" data-index="19">Level 19</div><div id="level-button-20" +="" class="level-button" data-index="20">Level 20</div></p>
+</div>
+
+<div id="swing-again-page" style="text-align:center;display:none;">
+
+
+
+	<div class="table-wrapper" style="position:relative;z-index:99;height:100%;">
+		<div class="table-row" style="padding:4px;">
+
+		</div>
+		<div class="table-row">
+		<div class="table-cell" style="width:35vw;text-align:center;">
+			<p style="padding:2em;background:rgba(255,255,255,0.8); margin-top: 8em;">
+			Want to play around with the code?  This game is open sourced and <a href="http://github.com/joeylemberg/swing.ninja">public on github</a>
+			</p>
+		</div>
+		<div class="table-cell"  style="width:30vw;text-align:center;vertical-align:top;padding-top:110px;">
+			<div class="swing-again-button" data-action="swingAgain">SWING AGAIN</div>
+			<div class="swing-again-button" data-action="back">BACK TO MENU</div>
+		</div>
+			<div class="table-cell" style="width:35vw;text-align:center;">
+				<p style="padding:2em;background:rgba(255,255,255,0.8);margin-top: 8em;">
+				Take a look at my other stuff at <a href="http://yinyang.ink">yinyang.ink</a>
+				</p>
+			</div>
+			</div>
+	</div>
+</div>
+
+<div id="about-page" class="menu-page">
+	<p class="page-title">
+		<img src="img/about.png" />
+	</p>
+	<div class="page-guts">
+
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shoot me an email a <a href="mailto:joeylemberg@gmail.com?subject=swing.ninja">joeylemberg@gmail.com</a> with any comments, inquiries, or just to say 'hi'.
+		I always include a message like this asking for users to email me directly, but no one ever does.
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swing Ninja is the lastest version of a very old and tortured project.  The original was, <a href="http://yangcanvas.com/ninjaescape">Ninja Escape</a>, my first web game.  Ninja Escape was not a hit, but people seemed to enjoy it, and the idea had clear potential, so I immediately started  working on the next version.
+	</p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So Ninja Escape was re-worked into <a href="http://w-asd.com/gm/">WASD</a>, adding polish and many new features, including an integrated level editor.  Again, the game didn't find active users, the idea was put on the shelf.
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Two years and <a href="http://yangcanvas.com/arcade">many quick cheap games later</a>, I post on reddit saying I make silly web games for fun, and asking for some low-key game dev contract work.  Daniel from <a href="http://www.gravy-baby.com">Gravy Baby</a> responded proposing a mobile game which was essentially Flappy Bird with my classic Ninja sprite.  So I worked with him on a cross-platform mobile version of the game, but again abandoned the project before publishing a version.  The scope of the game had creeped out of control, and the finish line had dissapeared from sight.
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 year later, I've modified the old code, and am publishing one more version of this Ninja game.  It's a simple game, with only one level, one-button controls, no story, no multiplayer nor high scores nor achievements, and no real art assets besides the original Ninja Escape sprite, but people tell me it's fucking fun, and I'm proud to have made it.
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thanks for reading and for playing.
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Peace and Love,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Joey
+	</p>
+	</div>
+	<div class="menu-button" data-action="back">
+		BACK
+	</div>
+</div>
+
+<div id="credits-page" class="menu-page">
+	<div class="page-title">
+		<h2>CREDITS</h2>
+	</div>
+	<div class="page-guts">
+	<p>
+		Top credit goes to you, my friend.  Amatuer game developers are like garage bands and starving artists--our audience is all family and friends, and the general population doesn't see our work.  So I am sincere in calling you a fried, and giving my thanks for playing my game.
+	</p>
+
+	<div style="font-size:24px;text-align:center;">༺༻</div>
+
+	<p>
+		<i>Ninja Swing</i> was programmed by Joey Lemberg.
+	</p>
+	<p>
+		It was produced by Gravy Baby Media.
+	</p>
+	<p>
+		Music is by <a href="https://soundcloud.com/lemon42">lemon42</a>.
+	</p>
+	<p>
+		Copyright 2015 <a href="http://yangcanvas.com">Yang Canvas</a> LLC, all rights reserved.
+	</p>
+	</div>
+
+
+	<div class="menu-button" data-action="back">
+		BACK
+	</div>
+</div>
+
+<div id="instructions-page" class="menu-page">
+	<p class="page-title">
+		<img src="img/instructions.png" />
+	<p>
+		Tap and hold to fire your grappling hook.  Hold while you swing.  Release your touch to retract your grappling hook and let the ninja fly.
+	</p>
+	<div style="whitespace:no-wrap;text-align:center;"><span>♙♙♙♙♙♙♙♙♘♘♗♗♖♖♕♔ ♚♛♜♜♝♝♞♞♟♟♟♟♟♟♟♟</span></div>
+	<div class="menu-button" data-action="back">
+		BACK
+	</div>
+</div>
+</body>
+
+<html>
