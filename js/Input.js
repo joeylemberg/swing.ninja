@@ -21,23 +21,23 @@ var Input = {
 		document.addEventListener('touchstart', Input.onTap, false);
 		document.addEventListener('touchend', Input.onRelease, false);
 	}
-	
-	
+
+
 	if(isWeb){
-		
+
 		Sound.gatita = "canvas";
-		
+
 		document.getElementById("sound").addEventListener(mousedown, function(){
 			if(Sound.isOn){
 				Sound.isOn = false;
 				$("#sound>img").attr("src", "img/nosound.png");
-			
+
 				tryToStore("soundon",false);
 				document.getElementById('audio').pause();
 			}else{
 				Sound.isOn = true;
 				$("#sound>img").attr("src", "img/sound.png");
-			
+
 				tryToStore("soundon",true);
 				document.getElementById('audio').play();
 			}
@@ -47,33 +47,33 @@ var Input = {
 			if(Sound.isOn){
 				Sound.isOn = false;
 				$("#sound>img").attr("src", "img/nosound.png");
-			
+
 				tryToStore("soundon",false);
 				Sound.music.pause();
 			}else{
 				Sound.isOn = true;
 				$("#sound>img").attr("src", "img/sound.png");
-			
+
 				tryToStore("soundon",true);
 				Sound.music.play();
 			}
 		}, false);
 	}
-	
-	
+
+
 	},
 	onTap: function(e){
-		
-		
+
+
 		//alert(e.type + "  isWeb:" + isWeb + "  mousedown:" + mousedown);
-		
+
 		e.preventDefault();
-		
+
 		if(Menu.page == "game"){
 			//	Input.x = (e.offsetX || e.pageX - $(e.target).position().left);// + Sprite.x - 100;
 			//	Input.y = (e.offsetY || e.pageY - $(e.target).position().top);
-				
-				
+
+
 				if(isWeb && mousedown == "mousedown"){
 					Input.x = e.pageX;// - $(e.target).position().left);// + Sprite.x - 100;
 					Input.y = e.pageY;//(e.offsetY || e.pageY - $(e.target).position().top);
@@ -81,12 +81,12 @@ var Input = {
 					Input.x = e.targetTouches[0].pageX;// - $(e.target).position().left);// + Sprite.x - 100;
 					Input.y = e.targetTouches[0].pageY;//(e.offsetY || e.pageY - $(e.target).position().top);
 				}
-				
+
 				Input.x *= 800/window.innerWidth;
 
 				Input.x += Level.x;
 
-			//	
+			//
 				Input.y *= 480/window.innerHeight;
 
 				if(Game.state == 0){
@@ -99,9 +99,9 @@ var Input = {
 					Game.reset();
 				}
 		}
-		
 
-		
+
+
 	},
 	onRelease: function(e){
 		e.preventDefault();
@@ -110,10 +110,9 @@ var Input = {
 			$(".menu-button").removeClass("pressing");
 		}
 		/*setTimeout(function(){
-			Grap.state = 0;	
+			Grap.state = 0;
 		},30);*/
 	}
-	
-	
-}
 
+
+}

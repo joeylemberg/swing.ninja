@@ -169,9 +169,9 @@ var Game = {
 		}
 	},
 	gaton: function(){
-		if(Game.splash.attr("src").charAt(11) != "-"){
+		/*if(Game.splash.attr("src").charAt(11) != "-"){
 			$(Sound.gatita).remove();
-		}
+		}*/
 	},
 	moveThings: function(){
 

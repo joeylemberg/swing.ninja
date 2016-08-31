@@ -13,7 +13,10 @@ var Menu = {
 	main: function(){
 		$("#main-menu").hide();
 		$("#main-game").show();
-		
+		$("#best-score").hide();
+
+				Game.endless = false;
+				Game.reset();
 		$(".level-button").each(function(){
 			if(parseInt($(this).attr("data-index")) > Game.maxLevel){
 				$(this).addClass("locked-level");
@@ -22,9 +25,10 @@ var Menu = {
 	},
 	play: function(){
 		Game.endless = false;
+		Game.reset();
 		$("#main-menu").hide();
 		$("#main-game").show();
-		
+
 		$(".level-button").each(function(){
 			if(parseInt($(this).attr("data-index")) > Game.maxLevel){
 				$(this).addClass("locked-level");
@@ -34,9 +38,10 @@ var Menu = {
 	},
 	endless: function(){
 		$("#main-menu").hide();
+		$("#best-score").show();
 		Game.endless = true;
 		Game.reset();
-		
+
 	},
 	instructions: function(){
 		$("#main-menu").hide();
